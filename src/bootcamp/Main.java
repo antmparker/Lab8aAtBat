@@ -20,50 +20,52 @@ public class Main {
         int[][] batStats = new int[numBatters][atBat];
 
         for (int row = 0; row < batStats.length; row++) {
-            for (int col = 0; col < batStats[row].length; col++) {
+            System.out.println("");
+            System.out.println("0=out, 1=single, 2=double, 3=triple, 4=home run");
+            System.out.print("Enter Batter " + (row + 1) + " bases: ");
 
+            for (int col = 0; col < batStats[row].length; col++) {
 
                 while (atBat <= 0) {
                     System.out.print("Enter positive number :");
                     atBat = scan.nextInt();
                 }
+
+
+                batStats[row][col] = scan.nextInt();
             }
-            int[] numBats = new int[atBat];
+        }
 
-
-            System.out.println("");
-            System.out.println("0=out, 1=single, 2=double, 3=triple, 4=home run");
+        for (int row = 0; row < batStats.length; row++) {
 
             double count = 0;
             double sum = 0;
 
-            for (int i = 0; i < numBats.length; i++) {
 
-                System.out.print("\nResult for at-bat " + (i + 1) + ": ");
+            while (atBat < 0 || atBat > 4) {
 
-                numBats[i] = scan.nextInt();
+                System.out.print("Error! Enter a number (0,1,2,3,4): ");
+                atBat = scan.nextInt();
+            }
+            for (int col = 0; col < batStats.length; col++) {
 
-                while (numBats[i] < 0 || numBats[i] > 4) {
+                sum += batStats[row][col];
 
-                    System.out.print("Error! Enter a number (0,1,2,3,4): ");
-                    numBats[i] = scan.nextInt();
-                }
-                sum += numBats[i];
-
-                if (numBats[i] > 0.0) {
+                if (batStats[row][col] > 0.0) {
                     count++;
 
                 }
             }
+            double batAvg = count / batStats[row].length;
+            System.out.printf("For batter %d, Batting Average: %.3f", (row + 1), batAvg);
 
-            System.out.printf("\nBatting average: %.3f", count / atBat);
-            System.out.printf("\nSlugging Percentage: %.3f", sum / atBat);
+            double slugPerc = sum / batStats.length;
+            System.out.printf("\tSlugging Percentage: %.3f\n", slugPerc);
 
 
         }
-        while (numBatters < batStats.length) ;
-
     }
 
-
 }
+
+
